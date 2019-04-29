@@ -31,11 +31,11 @@ void setup(void) {
     request->send(200, "text/plain", "Hi! I am ESP8266.");
   });
 
-  ElegantOTA.begin(server);    // Start ElegantOTA
+  AsyncElegantOTA.begin(server);    // Start ElegantOTA
   server.begin();
   Serial.println("HTTP server started");
 }
 
 void loop(void) {
-    
+
 }

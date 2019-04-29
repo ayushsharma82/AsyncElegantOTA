@@ -30,7 +30,7 @@ AsyncElegantOTA provides a beautiful interface to upload Over the Air `.bin` upd
 <h2>How to Install</h2>
 
 ###### Directly Through Arduino IDE ( Currently Submitted for Approval. Use Mannual Install till it gets Approved.)
-Go to Sketch > Include Library > Library Manager > Search for "ElegantOTA" > Install
+Go to Sketch > Include Library > Library Manager > Search for "AsyncElegantOTA" > Install
 
 ###### Manual Install
 
