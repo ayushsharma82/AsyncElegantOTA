@@ -25,7 +25,7 @@ class AsyncElegantOtaClass{
     public:
 
             void begin(AsyncWebServer &server){
-                server->on("/update", HTTP_GET, [&](AsyncWebServerRequest *request){
+                server.on("/update", HTTP_GET, [&](AsyncWebServerRequest *request){
                     AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", ELEGANT_HTML, ELEGANT_HTML_SIZE);
                     response->addHeader("Content-Encoding", "gzip");
                     request->send(response);
