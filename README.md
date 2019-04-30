@@ -56,8 +56,10 @@ Download the [Repository](https://github.com/ayushsharma82/AsyncElegantOTA/archi
  Now copy the IPAddress displayed over your Serial Monitor and go to `http://<IPAddress>/update` in browser. ( where `<IPAddress>` is the IP of your ESP Module)
  
 <br>
-<h2>Example</h2>
+<h2>Examples</h2>
  
+<h3>For ESP8266:</h3>
+
 ```
 #include <ESP8266WiFi.h>
 #include <Hash.h>
@@ -98,7 +100,55 @@ void setup(void) {
 }
 
 void loop(void) {
-  
+  AsyncElegantOTA.loop();
+}
+
+```
+
+<br>
+<h3>For ESP32:</h3>
+
+```
+#include <WiFi.h>
+#include <Hash.h>
+#include <AsyncTCP.h>
+#include <ESPAsyncWebServer.h>
+#include <AsyncElegantOTA.h>
+
+const char* ssid = "........";
+const char* password = "........";
+
+AsyncWebServer server(80);
+
+
+void setup(void) {
+  Serial.begin(115200);
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+  Serial.println("");
+
+  // Wait for connection
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.print("Connected to ");
+  Serial.println(ssid);
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
+
+  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
+    request->send(200, "text/plain", "Hi! I am ESP32.");
+  });
+
+  AsyncElegantOTA.begin(server);    // Start ElegantOTA
+  server.begin();
+  Serial.println("HTTP server started");
+}
+
+void loop(void) {
+  AsyncElegantOTA.loop();
 }
 
 ```
