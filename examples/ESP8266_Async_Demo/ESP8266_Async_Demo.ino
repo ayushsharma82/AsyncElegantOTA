@@ -37,5 +37,5 @@ void setup(void) {
 }
 
 void loop(void) {
-
+  AsyncElegantOTA.loop();
 }
