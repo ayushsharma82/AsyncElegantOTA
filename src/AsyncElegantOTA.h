@@ -1,5 +1,5 @@
-#ifndef ElegantOTA_h
-#define ElegantOTA_h
+#ifndef AsyncElegantOTA_h
+#define AsyncElegantOTA_h
 
 #include "Arduino.h"
 #include "stdlib_noniso.h"
