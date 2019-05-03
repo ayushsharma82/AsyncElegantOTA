@@ -12,6 +12,7 @@
     #include "WiFi.h"
     #include <Hash.h>
     #include <AsyncTCP.h>
+    #include <Update.h>
 #endif
 
 #include <ESPAsyncWebServer.h>
