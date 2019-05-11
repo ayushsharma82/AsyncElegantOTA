@@ -13,6 +13,8 @@
     #include <Hash.h>
     #include <AsyncTCP.h>
     #include <Update.h>
+    #include <esp_int_wdt.h>
+    #include <esp_task_wdt.h>
 #endif
 
 #include <ESPAsyncWebServer.h>
@@ -23,14 +25,16 @@
 class AsyncElegantOtaClass{
     public:
 
-        void begin(AsyncWebServer &server){
-            server.on("/update", HTTP_GET, [&](AsyncWebServerRequest *request){
+        void begin(AsyncWebServer *server){
+            _server = server;
+
+            _server->on("/update", HTTP_GET, [&](AsyncWebServerRequest *request){
                 AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", ELEGANT_HTML, ELEGANT_HTML_SIZE);
                 response->addHeader("Content-Encoding", "gzip");
                 request->send(response);
             });
 
-            server.on("/update", HTTP_POST, [&](AsyncWebServerRequest *request) {
+            _server->on("/update", HTTP_POST, [&](AsyncWebServerRequest *request) {
                 // the request handler is triggered after the upload has finished... 
                 // create the response, add header, and send response
                 AsyncWebServerResponse *response = request->beginResponse((Update.hasError())?500:200, "text/plain", (Update.hasError())?"FAIL":"OK");
@@ -74,11 +78,21 @@ class AsyncElegantOtaClass{
 
         void loop(){
             if(restartRequired){
-                ESP.restart();
+                yield();
+                delay(1000);
+                yield();
+                #if defined(ESP8266)
+                    ESP.restart();
+                #elif defined(ESP32)
+                    esp_task_wdt_init(1,true);
+                    esp_task_wdt_add(NULL);
+                    while(true);
+                #endif
             }
         }
 
     private:
+        AsyncWebServer *_server;
         bool restartRequired = false;
 
 };
