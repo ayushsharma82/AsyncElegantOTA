@@ -170,5 +170,5 @@ If you want to donate to the author then <b>you can become my patron</b>, It rea
 ESP-DASH is licensed under MIT.
 <br/>
 <br/>
-<img src="https://img.shields.io/github/license/ayushsharma82/ESP-DASH.svg?style=for-the-badge" />
+<img src="https://img.shields.io/github/license/ayushsharma82/AsyncElegantOTA.svg?style=for-the-badge" />
 </div>
