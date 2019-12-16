@@ -22,6 +22,8 @@
 #include "elegantWebpage.h"
 
 
+size_t content_len;
+
 class AsyncElegantOtaClass{
     public:
 
@@ -47,19 +49,22 @@ class AsyncElegantOtaClass{
                 if (!index) {
                 
                     #if defined(ESP8266)
-                        uint32_t maxSketchSpace = (ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000;      
-                        if (!Update.begin(maxSketchSpace)){ // Start with max available size
+                        content_len = request->contentLength();
+                        int cmd = (filename.indexOf("spiffs") > -1) ? U_SPIFFS : U_FLASH;
+                        //uint32_t maxSketchSpace = (ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000;  
+                        Update.runAsync(true);
+                        if (!Update.begin(content_len, cmd)){ // Start with max available size
                     #endif
                     
                     #if defined(ESP32)
-                        if (!Update.begin(UPDATE_SIZE_UNKNOWN)) { // Start with max available size
+                        if (!Update.begin(UPDATE_SIZE_UNKNOWN, cmd)) { // Start with max available size
                     #endif
                             Update.printError(Serial);   
                         }
 
-                    #if defined(ESP8266)
+                    /*#if defined(ESP8266)
                         Update.runAsync(true); // Tell the updaterClass to run in async mode
-                    #endif
+                    #endif*/
                 
                 }
 
