@@ -50,7 +50,7 @@ class AsyncElegantOtaClass{
                 
                     #if defined(ESP8266)
                         content_len = request->contentLength();
-                        int cmd = (filename.indexOf("spiffs") > -1) ? U_SPIFFS : U_FLASH;
+                        int cmd = (filename.indexOf("spiffs") > -1) ? U_FS : U_FLASH;
                         //uint32_t maxSketchSpace = (ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000;  
                         Update.runAsync(true);
                         if (!Update.begin(content_len, cmd)){ // Start with max available size
