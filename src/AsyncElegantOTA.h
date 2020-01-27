@@ -6,11 +6,9 @@
 
 #if defined(ESP8266)
     #include "ESP8266WiFi.h"
-    #include <Hash.h>
     #include <ESPAsyncTCP.h>
 #elif defined(ESP32)
     #include "WiFi.h"
-    #include <Hash.h>
     #include <AsyncTCP.h>
     #include <Update.h>
     #include <esp_int_wdt.h>
