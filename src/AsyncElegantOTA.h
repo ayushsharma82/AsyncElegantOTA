@@ -46,14 +46,13 @@ class AsyncElegantOtaClass{
                 //Upload handler chunks in data
                 if (!index) {
                 
-                        content_len = request->contentLength();
+                    content_len = request->contentLength();
+                    #if defined(ESP8266)
                         int cmd = (filename.indexOf("spiffs") > -1) ? U_FS : U_FLASH;
                         Update.runAsync(true);
-                    #if defined(ESP8266)
                         if (!Update.begin(content_len, cmd)){ // Start with max available size
-                    #endif
-                    
-                    #if defined(ESP32)
+                    #elif defined(ESP32)
+                        int cmd = (filename.indexOf("spiffs") > -1) ? U_SPIFFS : U_FLASH;
                         if (!Update.begin(UPDATE_SIZE_UNKNOWN, cmd)) { // Start with max available size
                     #endif
                             Update.printError(Serial);   
