@@ -8,7 +8,7 @@
 &nbsp;
 <img src="https://img.shields.io/github/license/ayushsharma82/AsyncElegantOTA.svg?style=for-the-badge" />
 &nbsp;
-<a href="https://www.patreon.com/asrocks5" target="_blank"><img src="https://img.shields.io/badge/patreon-donate-orange.svg?style=for-the-badge&logo=patreon" /></a>
+<a href="https://www.buymeacoffee.com/6QGVpSj" target="_blank"><img src="https://img.shields.io/badge/Buy%20me%20a%20coffee-%245-orange?style=for-the-badge&logo=buy-me-a-coffee" /></a>
 </p>
 <hr/>
 
@@ -158,9 +158,9 @@ void loop(void) {
 <h2>Contributions</h2>
 <p>Every Contribution to this repository is highly appriciated! Don't fear to create pull requests which enhance or fix the library as ultimatly you are going to help everybody.</p>
 <p>
-If you want to donate to the author then <b>you can become my patron</b>, It really helps me keep these libraries updated:
+If you want to donate to the author then <b>you can buy me a coffee</b>, It really helps me keep these libraries updated:
 <br/><br/>
-<a href="https://www.patreon.com/bePatron?u=16780597" target="_blank"><img src="https://img.shields.io/badge/patreon-donate-orange.svg?style=for-the-badge&logo=patreon" /></a>
+<a href="https://www.buymeacoffee.com/6QGVpSj" target="_blank"><img src="https://img.shields.io/badge/Buy%20me%20a%20coffee-%245-orange?style=for-the-badge&logo=buy-me-a-coffee" /></a>
 </p>
 <br/>
 <br/>
