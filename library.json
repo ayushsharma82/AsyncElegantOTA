@@ -1,7 +1,7 @@
 {
   "name": "AsyncElegantOTA",
   "keywords": "AsyncElegantOTA, OTA, Update, ESP8266, ESP32, Over, the, air",
-  "description": "Perform OTAs for ESP8266 Elegantly! Uses AsyncWebServer.",
+  "description": "Perform OTAs for ESP8266 & ESP32 Asynchronously.",
   "repository":
   {
     "type": "git",
@@ -15,7 +15,7 @@
       "maintainer": true
     }
   ],
-  "version": "1.0.6",
+  "version": "2.0.0",
   "frameworks": "arduino",
   "platforms": "espressif"
 }

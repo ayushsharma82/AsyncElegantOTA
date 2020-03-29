@@ -6,35 +6,72 @@
 
 #if defined(ESP8266)
     #include "ESP8266WiFi.h"
-    #include <ESPAsyncTCP.h>
+    #include "ESPAsyncTCP.h"
 #elif defined(ESP32)
     #include "WiFi.h"
-    #include <AsyncTCP.h>
-    #include <Update.h>
-    #include <esp_int_wdt.h>
-    #include <esp_task_wdt.h>
+    #include "AsyncTCP.h"
+    #include "Update.h"
+    #include "esp_int_wdt.h"
+    #include "esp_task_wdt.h"
 #endif
 
-#include <ESPAsyncWebServer.h>
+#include "ESPAsyncWebServer.h"
+#include "FS.h"
 
 #include "elegantWebpage.h"
 
 
-size_t content_len;
-
 class AsyncElegantOtaClass{
+
     public:
 
-        void begin(AsyncWebServer *server){
+        void setID(const char* id){
+            _id = id;
+        }
+
+        void begin(AsyncWebServer *server, const char* username = "", const char* password = ""){
             _server = server;
 
+            if(strlen(username) > 0){
+                _authRequired = true;
+                _username = username;
+                _password = password;
+            }else{
+                _authRequired = false;
+                _username = "";
+                _password = "";
+            }
+
+            _server->on("/update/identity", HTTP_GET, [&](AsyncWebServerRequest *request){
+                if(_authRequired){
+                    if(!request->authenticate(_username.c_str(), _password.c_str()))
+                        return request->requestAuthentication();
+                    }
+                }
+                #if defined(ESP8266)
+                    _server->send(200, "application/json", "{\"id\": "+_id+", \"hardware\": \"ESP8266\"}");
+                #elif defined(ESP32)
+                    _server->send(200, "application/json", "{\"id\": "+_id+", \"hardware\": \"ESP32\"}");
+                #endif
+            });
+
             _server->on("/update", HTTP_GET, [&](AsyncWebServerRequest *request){
+                if(_authRequired){
+                    if(!request->authenticate(_username.c_str(), _password.c_str()))
+                        return request->requestAuthentication();
+                    }
+                }
                 AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", ELEGANT_HTML, ELEGANT_HTML_SIZE);
                 response->addHeader("Content-Encoding", "gzip");
                 request->send(response);
             });
 
             _server->on("/update", HTTP_POST, [&](AsyncWebServerRequest *request) {
+                if(_authRequired){
+                    if(!request->authenticate(_username.c_str(), _password.c_str()))
+                        return request->requestAuthentication();
+                    }
+                }
                 // the request handler is triggered after the upload has finished... 
                 // create the response, add header, and send response
                 AsyncWebServerResponse *response = request->beginResponse((Update.hasError())?500:200, "text/plain", (Update.hasError())?"FAIL":"OK");
@@ -44,31 +81,42 @@ class AsyncElegantOtaClass{
                 restartRequired = true;
             }, [](AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final) {
                 //Upload handler chunks in data
+                if(_authRequired){
+                    if(!request->authenticate(_username.c_str(), _password.c_str()))
+                        return request->requestAuthentication();
+                    }
+                }
+
                 if (!index) {
-                
-                    content_len = request->contentLength();
+                    int cmd = (filename.indexOf("spiffs") > -1) ? U_FS : U_FLASH;
                     #if defined(ESP8266)
-                        int cmd = (filename.indexOf("spiffs") > -1) ? U_FS : U_FLASH;
                         Update.runAsync(true);
-                        if (!Update.begin(content_len, cmd)){ // Start with max available size
+                        size_t fsSize = ((size_t) &_FS_end - (size_t) &_FS_start);
+                        uint32_t maxSketchSpace = (ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000;
+                        if (!Update.begin((cmd == U_FS)?fsSize:maxSketchSpace, cmd)){ // Start with max available size
                     #elif defined(ESP32)
-                        int cmd = (filename.indexOf("spiffs") > -1) ? U_SPIFFS : U_FLASH;
                         if (!Update.begin(UPDATE_SIZE_UNKNOWN, cmd)) { // Start with max available size
                     #endif
-                            Update.printError(Serial);   
-                        }
-                
+                        Update.printError(Serial);
+                        return request->send(400, "text/plain", "OTA could not begin");
+                    }
                 }
 
                 // Write chunked data to the free sketch space
-                if (Update.write(data, len) != len) {
-                    Update.printError(Serial); 
+                if(len){
+                    if (Update.write(data, len) != len) {
+                        Update.printError(Serial);
+                        return request->send(400, "text/plain", "OTA could not begin");
+                    }
                 }
                     
                 if (final) { // if the final flag is set then this is the last frame of data
-                    if (Update.end(true)) { //true to set the size to the current progress
-
+                    if (!Update.end(true)) { //true to set the size to the current progress
+                        Update.printError(Serial);
+                        return request->send(400, "text/plain", "Could not end OTA");
                     }
+                }else{
+                    return;
                 }
             });
         }
@@ -81,6 +129,7 @@ class AsyncElegantOtaClass{
                 #if defined(ESP8266)
                     ESP.restart();
                 #elif defined(ESP32)
+                    // ESP32 will commit sucide
                     esp_task_wdt_init(1,true);
                     esp_task_wdt_add(NULL);
                     while(true);
@@ -88,8 +137,14 @@ class AsyncElegantOtaClass{
             }
         }
 
+
     private:
         AsyncWebServer *_server;
+
+        String _id = String(ESP.getChipId());
+        String _username = "";
+        String _password = "";
+        bool _authRequired = false;
         bool restartRequired = false;
 
 };
