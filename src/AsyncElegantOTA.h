@@ -141,7 +141,18 @@ class AsyncElegantOtaClass{
     private:
         AsyncWebServer *_server;
 
-        String _id = String(ESP.getChipId());
+        String getID(){
+            String id = "";
+            #if defined(ESP8266)
+                id = String(ESP.getChipId());
+            #elif defined(ESP32)
+                id = String((uint32_t)ESP.getEfuseMac(), HEX);
+            #endif
+            id.toUpperCase();
+            return id;
+        }
+
+        String _id = getID();
         String _username = "";
         String _password = "";
         bool _authRequired = false;
