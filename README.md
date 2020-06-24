@@ -1,4 +1,4 @@
-<p align="center"><img src="https://raw.githubusercontent.com/ayushsharma82/AsyncElegantOTA/master/docs/logo.svg?sanitize=true" width="400"></p>
+<p align="center"><img src="/docs/logo.svg?sanitize=true&raw=true" width="400"></p>
 
 <hr/>
 <p align="center">
@@ -8,12 +8,12 @@
 &nbsp;
 <img src="https://img.shields.io/github/license/ayushsharma82/AsyncElegantOTA.svg?style=for-the-badge" />
 &nbsp;
-<a href="https://www.patreon.com/asrocks5" target="_blank"><img src="https://img.shields.io/badge/patreon-donate-orange.svg?style=for-the-badge&logo=patreon" /></a>
+<a href="https://www.buymeacoffee.com/6QGVpSj" target="_blank"><img src="https://img.shields.io/badge/Buy%20me%20a%20coffee-%245-orange?style=for-the-badge&logo=buy-me-a-coffee" /></a>
 </p>
 <hr/>
 
 
-<p align="center">Push OTAs to ESP8266 / ESP32 Elegantly (Async)! </p>
+<p align="center">Perform OTAs for ESP8266 & ESP32 Asynchronously</p>
 <p align="center">
 AsyncElegantOTA provides a beautiful interface to upload Over the Air `.bin` updates to your ESP Modules with precise status and progress displayed over UI. This Library shows the current upload progress of your OTA and once finished, it will display the status of your OTA. This Version of Library uses AsyncWebServer. Thanks to @me-no-dev for a wonderful webserver library.
 </p>
@@ -22,7 +22,7 @@ AsyncElegantOTA provides a beautiful interface to upload Over the Air `.bin` upd
 <br>
 
 <h2 align="center">Preview</h2>
-<p align="center"><img src="https://raw.githubusercontent.com/ayushsharma82/AsyncElegantOTA/master/docs/elegantOtaDemo.gif"></p>
+<p align="center"><img src="/docs/elegantOtaDemo.gif?raw=true"></p>
 
 <br>
 <br>
@@ -158,9 +158,9 @@ void loop(void) {
 <h2>Contributions</h2>
 <p>Every Contribution to this repository is highly appriciated! Don't fear to create pull requests which enhance or fix the library as ultimatly you are going to help everybody.</p>
 <p>
-If you want to donate to the author then <b>you can become my patron</b>, It really helps me keep these libraries updated:
+If you want to donate to the author then <b>you can buy me a coffee</b>, It really helps me keep these libraries updated:
 <br/><br/>
-<a href="https://www.patreon.com/bePatron?u=16780597" target="_blank"><img src="https://img.shields.io/badge/patreon-donate-orange.svg?style=for-the-badge&logo=patreon" /></a>
+<a href="https://www.buymeacoffee.com/6QGVpSj" target="_blank"><img src="https://img.shields.io/badge/Buy%20me%20a%20coffee-%245-orange?style=for-the-badge&logo=buy-me-a-coffee" /></a>
 </p>
 <br/>
 <br/>
