@@ -44,20 +44,20 @@ class AsyncElegantOtaClass{
 
             _server->on("/update/identity", HTTP_GET, [&](AsyncWebServerRequest *request){
                 if(_authRequired){
-                    if(!request->authenticate(_username.c_str(), _password.c_str()))
+                    if(!request->authenticate(_username.c_str(), _password.c_str())){
                         return request->requestAuthentication();
                     }
                 }
                 #if defined(ESP8266)
-                    _server->send(200, "application/json", "{\"id\": "+_id+", \"hardware\": \"ESP8266\"}");
+                    request->send(200, "application/json", "{\"id\": \""+_id+"\", \"hardware\": \"ESP8266\"}");
                 #elif defined(ESP32)
-                    _server->send(200, "application/json", "{\"id\": "+_id+", \"hardware\": \"ESP32\"}");
+                    request->send(200, "application/json", "{\"id\": \""+_id+"\", \"hardware\": \"ESP32\"}");
                 #endif
             });
 
             _server->on("/update", HTTP_GET, [&](AsyncWebServerRequest *request){
                 if(_authRequired){
-                    if(!request->authenticate(_username.c_str(), _password.c_str()))
+                    if(!request->authenticate(_username.c_str(), _password.c_str())){
                         return request->requestAuthentication();
                     }
                 }
@@ -68,7 +68,7 @@ class AsyncElegantOtaClass{
 
             _server->on("/update", HTTP_POST, [&](AsyncWebServerRequest *request) {
                 if(_authRequired){
-                    if(!request->authenticate(_username.c_str(), _password.c_str()))
+                    if(!request->authenticate(_username.c_str(), _password.c_str())){
                         return request->requestAuthentication();
                     }
                 }
@@ -79,22 +79,23 @@ class AsyncElegantOtaClass{
                 response->addHeader("Access-Control-Allow-Origin", "*");
                 request->send(response);
                 restartRequired = true;
-            }, [](AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final) {
+            }, [&](AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final) {
                 //Upload handler chunks in data
                 if(_authRequired){
-                    if(!request->authenticate(_username.c_str(), _password.c_str()))
+                    if(!request->authenticate(_username.c_str(), _password.c_str())){
                         return request->requestAuthentication();
                     }
                 }
 
                 if (!index) {
-                    int cmd = (filename.indexOf("spiffs") > -1) ? U_FS : U_FLASH;
                     #if defined(ESP8266)
+                        int cmd = (filename == "filesystem") ? U_FS : U_FLASH;
                         Update.runAsync(true);
                         size_t fsSize = ((size_t) &_FS_end - (size_t) &_FS_start);
                         uint32_t maxSketchSpace = (ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000;
                         if (!Update.begin((cmd == U_FS)?fsSize:maxSketchSpace, cmd)){ // Start with max available size
                     #elif defined(ESP32)
+                        int cmd = (filename == "filesystem") ? U_SPIFFS : U_FLASH;
                         if (!Update.begin(UPDATE_SIZE_UNKNOWN, cmd)) { // Start with max available size
                     #endif
                         Update.printError(Serial);
@@ -105,7 +106,6 @@ class AsyncElegantOtaClass{
                 // Write chunked data to the free sketch space
                 if(len){
                     if (Update.write(data, len) != len) {
-                        Update.printError(Serial);
                         return request->send(400, "text/plain", "OTA could not begin");
                     }
                 }
@@ -136,7 +136,6 @@ class AsyncElegantOtaClass{
                 #endif
             }
         }
-
 
     private:
         AsyncWebServer *_server;
