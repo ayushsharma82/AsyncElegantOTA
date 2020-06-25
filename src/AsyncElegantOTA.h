@@ -15,6 +15,7 @@
     #include "esp_task_wdt.h"
 #endif
 
+#include "Hash.h"
 #include "ESPAsyncWebServer.h"
 #include "FS.h"
 
