@@ -1,5 +1,4 @@
 #include <WiFi.h>
-#include <Hash.h>
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 #include <AsyncElegantOTA.h>

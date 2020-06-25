@@ -62,7 +62,6 @@ Download the [Repository](https://github.com/ayushsharma82/AsyncElegantOTA/archi
 
 ```
 #include <ESP8266WiFi.h>
-#include <Hash.h>
 #include <ESPAsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 #include <AsyncElegantOTA.h>
@@ -110,7 +109,6 @@ void loop(void) {
 
 ```
 #include <WiFi.h>
-#include <Hash.h>
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 #include <AsyncElegantOTA.h>
