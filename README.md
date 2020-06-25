@@ -49,7 +49,7 @@ Download the [Repository](https://github.com/ayushsharma82/AsyncElegantOTA/archi
 
  Include AsyncElegantOTA Library `#include <AsyncElegantOTA.h>` at top of your Arduino Code.
  
- Paste this - `AsyncElegantOTA.begin(server);`  line above your `server.begin();`
+ Paste this - `AsyncElegantOTA.begin(&server);`  line above your `server.begin();`
  
  That's all!
  
