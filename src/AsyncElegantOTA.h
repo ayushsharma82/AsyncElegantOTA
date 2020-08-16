@@ -91,12 +91,11 @@ class AsyncElegantOtaClass{
                 }
 
                 if (!index) {
-                    if(request->hasParam("MD5", true)) {
+                    if(!request->hasParam("MD5", true)) {
                         return request->send(400, "text/plain", "MD5 parameter missing");
                     }
 
-                    const String sentMd5 = request->getParam("MD5", true)->value();
-                    if(!Update.setMD5(sentMd5.c_str())) {
+                    if(!Update.setMD5(request->getParam("MD5", true)->value().c_str())) {
                         return request->send(400, "text/plain", "MD5 parameter invalid");
                     }
 
