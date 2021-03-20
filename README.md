@@ -55,6 +55,26 @@ Download the [Repository](https://github.com/ayushsharma82/AsyncElegantOTA/archi
  
  Now copy the IPAddress displayed over your Serial Monitor and go to `http://<IPAddress>/update` in browser. ( where `<IPAddress>` is the IP of your ESP Module)
  
+ <br>
+
+<h2>Tutorials</h2>
+<p>Tutorials for AsyncElegantOTA is live on RandomNerdTutorials.</p>
+
+<h3>ESP8266</h3> 
+<h4>Arduino IDE:</h4>
+<p>https://randomnerdtutorials.com/esp8266-nodemcu-ota-over-the-air-arduino/</p>
+<h4>PlatformIO:</h4>
+<p>https://randomnerdtutorials.com/esp8266-nodemcu-ota-over-the-air-vs-code/</p>
+<br>
+
+<h3>ESP32</h3>
+<h4>Arduino IDE:</h4>
+<p>https://randomnerdtutorials.com/esp32-ota-over-the-air-arduino/</p>
+<h4>PlatformIO:</h4>
+<p>https://randomnerdtutorials.com/esp32-ota-over-the-air-vs-code/</p>
+
+<br>
+ 
 <br>
 <h2>Examples</h2>
  
