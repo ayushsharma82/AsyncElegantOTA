@@ -56,6 +56,12 @@ Download the [Repository](https://github.com/ayushsharma82/AsyncElegantOTA/archi
  Now copy the IPAddress displayed over your Serial Monitor and go to `http://<IPAddress>/update` in browser. ( where `<IPAddress>` is the IP of your ESP Module)
  
  <br>
+ 
+ #### Additional Security:
+ 
+ If you would like to add login to your OTA webpage, then please replace `AsyncElegantOTA.begin(&server);` with `AsyncElegantOTA.begin(&server, "username", "password");`. This will prevent unauthorized requests to your OTA webpage and prevent unauthorized firmware upload to your MCU.
+ 
+ <br>
 
 <h2>Tutorials</h2>
 <p>Tutorials for AsyncElegantOTA is live on RandomNerdTutorials.</p>
