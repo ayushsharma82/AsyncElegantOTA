@@ -132,7 +132,11 @@ class AsyncElegantOtaClass{
             });
         }
 
-        void restart(){
+        // deprecated, keeping for backward compatibility
+        void loop() {
+        }
+        
+        void restart() {
             yield();
             delay(1000);
             yield();
