@@ -81,7 +81,7 @@ class AsyncElegantOtaClass{
                 response->addHeader("Connection", "close");
                 response->addHeader("Access-Control-Allow-Origin", "*");
                 request->send(response);
-                restartRequired = true;
+                restart();
             }, [&](AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final) {
                 //Upload handler chunks in data
                 if(_authRequired){
@@ -132,20 +132,11 @@ class AsyncElegantOtaClass{
             });
         }
 
-        void loop(){
-            if(restartRequired){
-                yield();
-                delay(1000);
-                yield();
-                #if defined(ESP8266)
-                    ESP.restart();
-                #elif defined(ESP32)
-                    // ESP32 will commit sucide
-                    esp_task_wdt_init(1,true);
-                    esp_task_wdt_add(NULL);
-                    while(true);
-                #endif
-            }
+        void restart(){
+            yield();
+            delay(1000);
+            yield();
+            ESP.restart();
         }
 
     private:
@@ -166,7 +157,6 @@ class AsyncElegantOtaClass{
         String _username = "";
         String _password = "";
         bool _authRequired = false;
-        bool restartRequired = false;
 
 };
 
