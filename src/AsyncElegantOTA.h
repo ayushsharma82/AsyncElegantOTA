@@ -1,3 +1,5 @@
+#warning AsyncElegantOTA.loop(); is deprecated, please remove it from loop()
+
 #ifndef AsyncElegantOTA_h
 #define AsyncElegantOTA_h
 
