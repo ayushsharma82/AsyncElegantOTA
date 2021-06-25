@@ -129,7 +129,6 @@ void setup(void) {
 }
 
 void loop(void) {
-  AsyncElegantOTA.loop();
 }
 
 ```
@@ -176,7 +175,6 @@ void setup(void) {
 }
 
 void loop(void) {
-  AsyncElegantOTA.loop();
 }
 
 ```
