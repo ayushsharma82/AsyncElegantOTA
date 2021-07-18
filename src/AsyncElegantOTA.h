@@ -20,7 +20,11 @@
 #endif
 
 #include "Hash.h"
+
+// To avoid clashes with already declared constants add WEBSERVER_H directive
+#define WEBSERVER_H
 #include "ESPAsyncWebServer.h"
+
 #include "FS.h"
 
 #include "elegantWebpage.h"
