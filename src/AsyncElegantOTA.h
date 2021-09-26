@@ -123,11 +123,13 @@ class AsyncElegantOtaClass{
                 }
                     
                 if (final) { // if the final flag is set then this is the last frame of data
+                 #if defined(ESP32)
+                    enableCore0WDT();///////////////////////////////////////////////////////////////////////////////////
+                 #endif
                     if (!Update.end(true)) { //true to set the size to the current progress
                         Update.printError(Serial);
                         return request->send(400, "text/plain", "Could not end OTA");
                     }
-                enableCore0WDT();///////////////////////////////////////////////////////////////////////////////////
                 }else{
                     return;
                 }
