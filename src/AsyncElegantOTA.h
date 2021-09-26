@@ -127,7 +127,7 @@ class AsyncElegantOtaClass{
                         Update.printError(Serial);
                         return request->send(400, "text/plain", "Could not end OTA");
                     }
-                //enableCore0WDT();///////////////////////////////////////////////////////////////////////////////////
+                enableCore0WDT();///////////////////////////////////////////////////////////////////////////////////
                 }else{
                     return;
                 }
