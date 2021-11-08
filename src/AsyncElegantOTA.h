@@ -61,7 +61,6 @@ class AsyncElegantOtaClass{
             });
 
             _server->on("/update", HTTP_GET, [&](AsyncWebServerRequest *request){
-                preUpdateCallback(); 
                 if(_authRequired){
                     if(!request->authenticate(_username.c_str(), _password.c_str())){
                         return request->requestAuthentication();
@@ -101,7 +100,7 @@ class AsyncElegantOtaClass{
                     if(!Update.setMD5(request->getParam("MD5", true)->value().c_str())) {
                         return request->send(400, "text/plain", "MD5 parameter invalid");
                     }
-
+                    preUpdateCallback();
                     #if defined(ESP8266)
                         int cmd = (filename == "filesystem") ? U_FS : U_FLASH;
                         Update.runAsync(true);
