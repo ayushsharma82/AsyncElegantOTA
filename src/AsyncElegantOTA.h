@@ -61,6 +61,7 @@ class AsyncElegantOtaClass{
             });
 
             _server->on("/update", HTTP_GET, [&](AsyncWebServerRequest *request){
+                preUpdateCallback(); 
                 if(_authRequired){
                     if(!request->authenticate(_username.c_str(), _password.c_str())){
                         return request->requestAuthentication();
@@ -145,6 +146,10 @@ class AsyncElegantOtaClass{
             ESP.restart();
         }
 
+        void preFotaRoutineCallback(void callable(void)){
+            preUpdateCallback = callable;
+        }
+
     private:
         AsyncWebServer *_server;
 
@@ -163,6 +168,7 @@ class AsyncElegantOtaClass{
         String _username = "";
         String _password = "";
         bool _authRequired = false;
+        void (*preUpdateCallback)();
 
 };
 
