@@ -65,7 +65,9 @@ Download the [Repository](https://github.com/ayushsharma82/AsyncElegantOTA/archi
 
 <b>Antivirus Issue:</b> If you have an antivirus on your PC with internet security, the progress bar on webpage will instantly show 100% because of request caching by your antivirus software. There is no fix for this unless you want to disable your antivirus or whitelist your local IP addresses in it. ( Same is the case with iOS, safari will cache the outgoing requests )
 
-<br>
+
+ #### Pre Update Callback Binding (optional):
+ If you want to run some task like disabling some piece of code that comes in the way of the OTA update and causes some panic, just put  `AsyncElegantOTA.preFotaRoutineCallback(callback);` in the setup(), which binds the callback and calls it just before an OTA update begins. Callback declaration should only be `void callback(void);`.
 
 <h2>Tutorials</h2>
 <p>Tutorials for AsyncElegantOTA is live on RandomNerdTutorials.</p>
@@ -182,7 +184,7 @@ void loop(void) {
 <br>
 
 <h2>Contributions</h2>
-<p>Every Contribution to this repository is highly appriciated! Don't fear to create pull requests which enhance or fix the library as ultimatly you are going to help everybody.</p>
+<p>Every Contribution to this repository is highly appriciated! Don't fear to create pull requests which enhance or fix the library as ultimately you are going to help everybody.</p>
 <p>
 If you want to donate to the author then <b>you can buy me a coffee</b>, It really helps me keep these libraries updated:
 <br/><br/>
