@@ -145,7 +145,7 @@ class AsyncElegantOtaClass{
             ESP.restart();
         }
 
-        void preFotaRoutineCallback(void callable(void)){
+        void onOTAStart(void callable(void)){
             preUpdateCallback = callable;
         }
 
