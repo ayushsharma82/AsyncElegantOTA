@@ -4,7 +4,7 @@
 <p align="center">
 <img src="https://img.shields.io/github/last-commit/ayushsharma82/AsyncElegantOTA.svg?style=for-the-badge" />
 &nbsp;
-<img src="https://img.shields.io/travis/com/ayushsharma82/AsyncElegantOTA/master?style=for-the-badge" />
+<img src="https://img.shields.io/github/workflow/status/ayushsharma82/AsyncElegantOTA/Arduino%20Library%20CI/master?style=for-the-badge" />
 &nbsp;
 <img src="https://img.shields.io/github/license/ayushsharma82/AsyncElegantOTA.svg?style=for-the-badge" />
 &nbsp;
