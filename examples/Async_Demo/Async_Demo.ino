@@ -1,3 +1,12 @@
+ /*
+  AsyncElegantOTA Demo Example - This example will work for both ESP8266 & ESP32 microcontrollers.
+  -----
+  Author: Ayush Sharma ( https://github.com/ayushsharma82 )
+  
+  Important Notice: Star the repository on Github if you like the library! :)
+  Repository Link: https://github.com/ayushsharma82/AsyncElegantOTA
+*/
+
 #if defined(ESP8266)
   #include <ESP8266WiFi.h>
   #include <ESPAsyncTCP.h>
