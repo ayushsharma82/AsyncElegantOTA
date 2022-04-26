@@ -108,6 +108,7 @@ class AsyncElegantOtaClass{
                         uint32_t maxSketchSpace = (ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000;
                         if (!Update.begin((cmd == U_FS)?fsSize:maxSketchSpace, cmd)){ // Start with max available size
                     #elif defined(ESP32)
+                        disableCore0WDT(); ////////////////////////////////////////////////////////////////////////////
                         int cmd = (filename == "filesystem") ? U_SPIFFS : U_FLASH;
                         if (!Update.begin(UPDATE_SIZE_UNKNOWN, cmd)) { // Start with max available size
                     #endif
@@ -124,6 +125,9 @@ class AsyncElegantOtaClass{
                 }
                     
                 if (final) { // if the final flag is set then this is the last frame of data
+                 #if defined(ESP32)
+                    enableCore0WDT();///////////////////////////////////////////////////////////////////////////////////
+                 #endif
                     if (!Update.end(true)) { //true to set the size to the current progress
                         Update.printError(Serial);
                         return request->send(400, "text/plain", "Could not end OTA");
