@@ -100,7 +100,7 @@ class AsyncElegantOtaClass{
                     if(!Update.setMD5(request->getParam("MD5", true)->value().c_str())) {
                         return request->send(400, "text/plain", "MD5 parameter invalid");
                     }
-
+                    preUpdateCallback();
                     #if defined(ESP8266)
                         int cmd = (filename == "filesystem") ? U_FS : U_FLASH;
                         Update.runAsync(true);
@@ -145,6 +145,10 @@ class AsyncElegantOtaClass{
             ESP.restart();
         }
 
+        void onOTAStart(void callable(void)){
+            preUpdateCallback = callable;
+        }
+
     private:
         AsyncWebServer *_server;
 
@@ -163,6 +167,7 @@ class AsyncElegantOtaClass{
         String _username = "";
         String _password = "";
         bool _authRequired = false;
+        void (*preUpdateCallback)();
 
 };
 
