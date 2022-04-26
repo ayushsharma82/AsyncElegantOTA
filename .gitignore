@@ -56,6 +56,5 @@ Mkfile.old
 dkms.conf
 
 
-.gitignore
 platformio.ini
 src/main.cpp
