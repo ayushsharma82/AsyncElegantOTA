@@ -1,4 +1,5 @@
 .vscode
+.pio
 elegant-webpage/
 
 # Prerequisites
@@ -53,3 +54,8 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+
+.gitignore
+platformio.ini
+src/main.cpp
