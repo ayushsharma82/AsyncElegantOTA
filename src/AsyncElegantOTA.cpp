@@ -111,10 +111,19 @@ void AsyncElegantOtaClass::loop() {
 }
 
 void AsyncElegantOtaClass::restart() {
-    yield();
-    delay(1000);
-    yield();
-    ESP.restart();
+    #if defined CONFIG_IDF_TARGET_ESP32S2 || defined CONFIG_IDF_TARGET_ESP32S2
+        yield();
+        delay(1000);
+        yield();
+        esp_task_wdt_init(1,true);
+        esp_task_wdt_add(NULL);
+        while(true);
+    #else
+        yield();
+        delay(1000);
+        yield();
+        ESP.restart();
+    #endif
 }
 
 String AsyncElegantOtaClass::getID(){
