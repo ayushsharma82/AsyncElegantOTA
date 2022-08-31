@@ -24,19 +24,21 @@ const char* password = "........";
 AsyncWebServer server(80);
 
 int iCallBackCount = 0;
+unsigned long lStartTime ;
 
 void MyAction_onOTAStart() {
   iCallBackCount = 0;
-  Serial.printf("OTA update started %d\n\r", millis());
+  Serial.printf("OTA update started\n\r");
+  lStartTime = millis();
 }
 
 void  MyAction_onOTAProgress() {
   iCallBackCount = iCallBackCount + 1;
-  Serial.printf("OTA progress %d\n\r", millis());
+  Serial.printf("OTA progress, %5.3fs elapsed\n\r", (float)(millis()-lStartTime)/1000.0);
 }
 
 void MyAction_onOTAEnd() {
-  Serial.printf("OTA update ended %d\n\r", millis());
+  Serial.printf("OTA update ended, %5.3fs elapsed\n\r", (float)(millis()-lStartTime)/1000.0);
   iCallBackCount = 0 ;
 }
 
