@@ -102,13 +102,13 @@ upload_url = <your upload URL, such as http://192.168.1.123/update>
 ```
 #include <ESP8266WiFi.h>
 #include <ESPAsyncTCP.h>
-#include <ESPAsyncWebServer.h>
+#include <ESPAsyncWebSrv.h>
 #include <AsyncElegantOTA.h>
 
 const char* ssid = "........";
 const char* password = "........";
 
-AsyncWebServer server(80);
+AsyncWebSrv server(80);
 
 
 void setup(void) {
@@ -148,7 +148,7 @@ void loop(void) {
 ```
 #include <WiFi.h>
 #include <AsyncTCP.h>
-#include <ESPAsyncWebServer.h>
+#include <ESPAsyncWebSrv.h>
 #include <AsyncElegantOTA.h>
 
 const char* ssid = "........";
@@ -174,7 +174,7 @@ void setup(void) {
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
 
-  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
+  server.on("/", HTTP_GET, [](AsyncWebSrvRequest *request) {
     request->send(200, "text/plain", "Hi! I am ESP32.");
   });
 
