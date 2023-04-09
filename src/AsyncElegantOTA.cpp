@@ -73,8 +73,6 @@ void AsyncElegantOtaClass::begin(AsyncWebServer *server, const char* username, c
                 return request->send(400, "text/plain", "MD5 parameter invalid");
             }
 
-            if (_preUpdateRequired) preUpdateCallback();
-
             #if defined(ESP8266)
                 int cmd = (filename == "filesystem") ? U_FS : U_FLASH;
                 Update.runAsync(true);
@@ -88,6 +86,7 @@ void AsyncElegantOtaClass::begin(AsyncWebServer *server, const char* username, c
                 Update.printError(Serial);
                 return request->send(400, "text/plain", "OTA could not begin");
             }
+            if (_preUpdateRequired) preUpdateCallback();
         }
 
         // Write chunked data to the free sketch space

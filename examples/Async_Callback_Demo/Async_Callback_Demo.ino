@@ -23,23 +23,32 @@ const char* password = "........";
 
 AsyncWebServer server(80);
 
-int iCallBackCount = 0;
-unsigned long lStartTime ;
+int iCallBackCount = -1;
+unsigned long lStartTime = 0 ;
 
 void MyAction_onOTAStart() {
   iCallBackCount = 0;
-  Serial.printf("OTA update started\n\r");
   lStartTime = millis();
+  Serial.printf("OTA update started\n\r");
 }
 
 void  MyAction_onOTAProgress() {
+  if (iCallBackCount == -1) {
+    iCallBackCount = 0;
+    lStartTime = millis();
+  }
   iCallBackCount = iCallBackCount + 1;
-  Serial.printf("OTA progress, %5.3fs elapsed\n\r", (float)(millis()-lStartTime)/1000.0);
+  Serial.printf("OTA progress, call back count %d, %5.3fs elapsed\n\r", iCallBackCount, (float)(millis()-lStartTime)/1000.0);
 }
 
 void MyAction_onOTAEnd() {
-  Serial.printf("OTA update ended, %5.3fs elapsed\n\r", (float)(millis()-lStartTime)/1000.0);
-  iCallBackCount = 0 ;
+  if (lStartTime != 0) {
+    Serial.printf("OTA update ended, %5.3fs elapsed\n\r", (float)(millis()-lStartTime)/1000.0);
+  } else {
+    Serial.printf("OTA update ended, onOTAStart or onOTAProgress not used\n\r");
+  }
+  iCallBackCount = -1 ;
+  lStartTime = 0 ;
 }
 
 void setup(void) {
@@ -64,7 +73,7 @@ void setup(void) {
   });
 
   AsyncElegantOTA.begin(&server);    // Start AsyncElegantOTA
-    server.begin();
+  server.begin();
   Serial.println("HTTP server started");
 
 // Add the AsyncElegantOTA callbacks
@@ -74,7 +83,6 @@ void setup(void) {
   AsyncElegantOTA.onOTAStart(MyAction_onOTAStart);
   AsyncElegantOTA.onOTAProgress(MyAction_onOTAProgress);
   AsyncElegantOTA.onOTAEnd(MyAction_onOTAEnd);
-
 }
 
 void loop(void) {
