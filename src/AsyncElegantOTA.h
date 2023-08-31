@@ -23,7 +23,9 @@
 #include "ESPAsyncWebServer.h"
 #include "FS.h"
 
+#ifndef NOHTMLRENDER
 #include "elegantWebpage.h"
+#endif
 
 
 class AsyncElegantOtaClass{
