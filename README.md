@@ -61,6 +61,8 @@ Download the [Repository](https://github.com/ayushsharma82/AsyncElegantOTA/archi
  
  If you would like to add login to your OTA webpage, then please replace `AsyncElegantOTA.begin(&server);` with `AsyncElegantOTA.begin(&server, "username", "password");`. This will prevent unauthorized requests to your OTA webpage and prevent unauthorized firmware upload to your MCU.
  
+ If you want to disable the HTML rendering (either for security purpose or to reduce the memory space used), you can add the build flag `NOHTMLRENDER` during the build.
+
 <br>
 
 <b>Antivirus Issue:</b> If you have an antivirus on your PC with internet security, the progress bar on webpage will instantly show 100% because of request caching by your antivirus software. There is no fix for this unless you want to disable your antivirus or whitelist your local IP addresses in it. ( Same is the case with iOS, safari will cache the outgoing requests )
