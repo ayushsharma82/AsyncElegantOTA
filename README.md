@@ -7,3 +7,6 @@
 AsyncElegantOTA has been deprecated in favor of new ElegantOTA V3 which now comes with Async Mode and latest features. Please consider moving to ElegantOTA V3 for further updates and improvements. <a href="https://github.com/ayushsharma82/ElegantOTA">Learn More</a>
 </p>
 
+<p align="center">
+Existing users/supporters, please star the latest ElegantOTA repository so that more people can know about it :) Thanks!
+</p>
