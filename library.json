@@ -1,7 +1,7 @@
 {
   "name": "AsyncElegantOTA",
   "keywords": "AsyncElegantOTA, OTA, Update, ESP8266, ESP32, Over, the, air",
-  "description": "Perform OTAs for ESP8266 & ESP32 Asynchronously.",
+  "description": "(Deprecated) Migrate to ElegantOTA v3. More info in repository README.",
   "repository":
   {
     "type": "git",
@@ -15,7 +15,7 @@
       "maintainer": true
     }
   ],
-  "version": "2.2.8",
+  "version": "2.2.9",
   "frameworks": "arduino",
   "platforms": ["espressif8266", "espressif32"]
 }

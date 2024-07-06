@@ -1,12 +1,7 @@
-<p align="center"><img src="/docs/logo.svg?sanitize=true&raw=true" width="400"></p>
+# (Deprecated) AsyncElegantOTA
 
- 
-<h2 align="center">Deprecated</h2>
+AsyncElegantOTA has been **deprecated** and it is NOT recommended for usage. Please consider migrating to **[ElegantOTA](https://github.com/ayushsharma82/ElegantOTA) which now comes with async mode**. Learn More on async mode: https://docs.elegantota.pro/async-mode/
 
-<p align="center">
-AsyncElegantOTA has been deprecated in favor of new ElegantOTA V3 which now comes with Async Mode and latest features. Please consider moving to ElegantOTA V3 for further updates and improvements. <a href="https://github.com/ayushsharma82/ElegantOTA">Learn More</a>
-</p>
+---
 
-<p align="center">
-Existing users/supporters, please star the latest ElegantOTA repository so that more people can know about it :) Thanks!
-</p>
+**ElegantOTA** is the latest library that is much more reliable and has an advanced upload mechanism.

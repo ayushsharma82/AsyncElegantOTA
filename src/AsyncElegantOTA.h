@@ -1,7 +1,7 @@
 #ifndef AsyncElegantOTA_h
 #define AsyncElegantOTA_h
 
-#warning AsyncElegantOTA library is deprecated, Please consider moving to newer ElegantOTA library which now comes with an Async Mode. Learn More: https://docs.elegantota.pro/async-mode/ 
+#error AsyncElegantOTA library is deprecated, Please consider migrating to newer ElegantOTA library which now comes with an async mode. Learn More: https://docs.elegantota.pro/async-mode/ 
 
 #include "Arduino.h"
 #include "stdlib_noniso.h"

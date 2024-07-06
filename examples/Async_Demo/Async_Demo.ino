@@ -1,10 +1,10 @@
  /*
-  AsyncElegantOTA Demo Example - This example will work for both ESP8266 & ESP32 microcontrollers.
+  (Deprecated) AsyncElegantOTA Demo Example
   -----
-  Author: Ayush Sharma ( https://github.com/ayushsharma82 )
-  
-  Important Notice: Star the repository on Github if you like the library! :)
-  Repository Link: https://github.com/ayushsharma82/AsyncElegantOTA
+
+  This library has been deprecated. Please migrate to ElegantOTA v3
+  New Repo: https://github.com/ayushsharma82/ElegantOTA
+  Async Mode: https://docs.elegantota.pro/async-mode/
 */
 
 #if defined(ESP8266)
