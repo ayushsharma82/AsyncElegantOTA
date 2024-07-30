@@ -33,7 +33,11 @@ class AsyncElegantOtaClass{
             setID(const char* id),
             begin(AsyncWebServer *server, const char* username = "", const char* password = ""),
             loop(),
+            onOTAStart(void callable(void)),
+            onOTAProgress(void callable(void)),
+            onOTAEnd(void callable(void)),
             restart();
+
 
     private:
         AsyncWebServer *_server;
@@ -44,7 +48,12 @@ class AsyncElegantOtaClass{
         String _username = "";
         String _password = "";
         bool _authRequired = false;
-
+        bool _preUpdateRequired = false;
+        bool _progressUpdateRequired = false;
+        bool _postUpdateRequired = false;
+        void (*preUpdateCallback)();
+        void (*progressUpdateCallback)();
+        void (*postUpdateCallback)();
 };
 
 extern AsyncElegantOtaClass AsyncElegantOTA;

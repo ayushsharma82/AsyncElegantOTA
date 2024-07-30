@@ -86,6 +86,7 @@ void AsyncElegantOtaClass::begin(AsyncWebServer *server, const char* username, c
                 Update.printError(Serial);
                 return request->send(400, "text/plain", "OTA could not begin");
             }
+            if (_preUpdateRequired) preUpdateCallback();
         }
 
         // Write chunked data to the free sketch space
@@ -93,6 +94,7 @@ void AsyncElegantOtaClass::begin(AsyncWebServer *server, const char* username, c
             if (Update.write(data, len) != len) {
                 return request->send(400, "text/plain", "OTA could not begin");
             }
+            if (_progressUpdateRequired) progressUpdateCallback();
         }
             
         if (final) { // if the final flag is set then this is the last frame of data
@@ -100,6 +102,7 @@ void AsyncElegantOtaClass::begin(AsyncWebServer *server, const char* username, c
                 Update.printError(Serial);
                 return request->send(400, "text/plain", "Could not end OTA");
             }
+            if (_postUpdateRequired) postUpdateCallback();
         }else{
             return;
         }
@@ -108,6 +111,21 @@ void AsyncElegantOtaClass::begin(AsyncWebServer *server, const char* username, c
 
 // deprecated, keeping for backward compatibility
 void AsyncElegantOtaClass::loop() {
+}
+
+void AsyncElegantOtaClass::onOTAStart(void callable(void)){
+    preUpdateCallback = callable;
+    _preUpdateRequired = true ;
+}
+
+void AsyncElegantOtaClass::onOTAProgress(void callable(void)){
+    progressUpdateCallback= callable;
+    _progressUpdateRequired = true ;
+}
+
+void AsyncElegantOtaClass::onOTAEnd(void callable(void)){
+    postUpdateCallback = callable;
+    _postUpdateRequired = true ;
 }
 
 void AsyncElegantOtaClass::restart() {
